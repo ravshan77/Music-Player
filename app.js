@@ -1,28 +1,28 @@
 let fillbar = document.querySelector(".fill");
 let audios = [
     "./mp3/Skriptonit_-_Polozhenie_izzamuzzic_remix_minus_66134991.mp3",
-  "./mp3/Dan_Balan_-_Funny_Love_53300430.mp3",
-  "./mp3/Jony - Мир Сошёл С Ума.mp3"
+  "./mp3/Otnicka_where_are_you_slowed_black_trap_remix.mp3",
+  "./mp3/Coolio-feat-LV_-_Ganstas-paradise.mp3"
 ];
 
 let currentTime = document.querySelector(".time");
 
-// create an object of audio
+// audio obektni yaratib olamiz
 
 let audio = new Audio();
 let currentSong = 0;
 
-// whenever the window load, song should play automaticly
+// oyna yuklanganda, qo'shiq avtomatik ravishda ijro etilishi kerak
 
 window.onload = playSong;
 
-// let's play the song by this function whenever window load
+//  har doim oyna yuklanganda qo'shiqni shu funksiya orqali ijro qilnadi
 
 function playSong() {
   audio.src = audios[currentSong];
   audio.play();
 }
-console.log(audio.namespaceURI);
+
 
 function togglePlay() {
   if (audio.paused) {
@@ -38,15 +38,16 @@ function togglePlay() {
   }
 }
 
-// now let's make dynamc the fillbar
+// Endi to'ldirish panelini Dynamc qilamiz
 
 audio.addEventListener("timeupdate", function () {
   let position = audio.currentTime / audio.duration;
   fillbar.style.width = position * 100 + "%";
-  // let's work on the duration
+
+  // Davomiylik bulishini taminlamiz
   convertTime(Math.round(audio.currentTime));
 
-  // let'is work on the play next song when current song completed
+  // qo'shiq tugagandan kiyin, navbatdagi qo'shiqqa o'tkazamiz
   if (audio.ended) {
     nextAudio();
   }
@@ -56,7 +57,7 @@ function convertTime(secunds) {
   let min = Math.floor(secunds / 60);
   let sec = secunds % 60;
 
-  // lets fix the songle digit
+  // timer vatlarini belgilaymiz
   min = min < 10 ? "0" + min : min;
   sec = sec < 10 ? "0" + sec : sec;
   currentTime.textContent = min + ":" + sec;
@@ -67,14 +68,14 @@ function convertTime(secunds) {
 function totalTime(seconds) {
   let mint = Math.floor(seconds / 60);
   let secnt = secunds % 60;
-  // lets fix the songle digit
+  // qo'shiqning jami vaqtini belgilaymiz 
 
   mint = mint < 10 ? "0" + mint : mint;
   secnt = secnt < 10 ? "0" + secnt : secnt;
   currentTime.textContent += "&" + mint + ":" + secnt;
 }
 
-// now let's work on next and prev buttons
+// o'tkazish va qaytarish buttonlarini belgilamiz
 
 function nextAudio() {
   currentSong++;
@@ -86,8 +87,6 @@ function nextAudio() {
   playBtn.innerHTML = '<i class="fa fa-pause"></i>';
   playBtn.style.paddingLeft = "30px";
 
-  // just one line jquery
-  $(".img img").attr("src", covers[currentSong]);
 }
 
 function prevAudio() {
@@ -100,11 +99,9 @@ function prevAudio() {
   playBtn.innerHTML = '<i class="fa fa-pause"></i>';
   playBtn.style.paddingLeft = "30px";
 
-  // just one line jquery for changing the covers
-  $(".img img").attr("src", covers[currentSong]);
 }
 
-//let's work on volume up, down and mute
+// ovozni kutarish va passaytirish buttonlarini belgilaymiz
 
 function decreaseVolume() {
   audio.volume -= 0.25;
@@ -114,7 +111,7 @@ function increaseVolume() {
   audio.volume += 0.25;
 }
 
-// fix the spaker muted button
+// ovozni uchirib quyish funksiyasini yozamiz
 let volumeUp = document.querySelector(".volume-up");
 volumeUp.addEventListener("click", function () {
   if (audio.volume === 1) {
